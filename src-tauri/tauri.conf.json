@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Whisper",
+        "title": "ohCaptain!",
     "width": 380,
     "height": 160,
     "resizable": false,
@@ -21,7 +21,8 @@
     "decorations": false,
     "alwaysOnTop": false,
     "x": 1120,
-    "y": 20
+    "y": 20,
+    "skipTaskbar": true
       }
     ],
     "security": {
