@@ -64,7 +64,7 @@
     <div class="content">
       <p class="quote">"{quote}"</p>
       <p class="author">— {author}</p>
-      <!-- <p class="fetched-at">{fetchedAt}</p> -->
+      <p class="fetched-at">{fetchedAt}</p> 
     </div>
   {/if}
 
