@@ -95,7 +95,7 @@
     height: 160px;
     background: rgba(0, 0, 0, 0.55);  /* semi-transparent dark card */
     backdrop-filter: blur(12px);       /* frosted glass effect */
-    border-radius: 16px;
+    border-radius: 0px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 24px 28px;
     box-sizing: border-box;
