@@ -1,20 +1,27 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use tauri::{
-    Manager,
-    tray::TrayIconBuilder,
-    menu::{Menu, MenuItem},
+    Manager, menu::{Menu, MenuItem}, tray::TrayIconBuilder,
 };
+use reqwest;
 
-#[tauri::command]
+    #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
+}
+#[tauri::command]
+async fn quotefetch() -> Result<String, String> {
+    let response = reqwest::get("https://zenquotes.io/api/random")
+    .await
+    .map_err(|e| e.to_string())?;
+    let text = response.text().await.map_err(|e| e.to_string())?;
+    Ok(text)
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet, quotefetch])
         .setup(|app| {
             let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let show_i = MenuItem::with_id(app, "show", "Show", true, None::<&str>)?;

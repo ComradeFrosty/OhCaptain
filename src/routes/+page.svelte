@@ -2,7 +2,8 @@
   // onMount runs once when the component appears on screen
   // think of it like "when the widget wakes up, do this"
   import { onMount } from 'svelte';
-  import { getCurrentWindow } from '@tauri-apps/api/window'; 
+  import { getCurrentWindow } from '@tauri-apps/api/window';
+  import { invoke } from '@tauri-apps/api/core'; 
 
   // these are reactive variables - when they change, the UI updates automatically
   // that's one of Svelte's superpowers vs plain JS
@@ -17,11 +18,10 @@
     loading = true;
 
     try {
-      const response = await fetch('https://api.quotable.io/random?maxLength=120');
-      const data = await response.json();
-
-      quote = data.content;
-      author = data.author;
+      const raw = await invoke('quotefetch');
+      const data = JSON.parse(raw);
+      quote = data[0].q;
+      author = data[0].a;
     } catch (error) {
       // if the internet is down, show a fallback line
       quote = "The world is full of magic things, patiently waiting for our senses to grow sharper.";
